@@ -70,3 +70,5 @@ app.cli.add_command(test)
 
 
 #this is a comment to test if git push is functional ;) 
+
+#this is another test comment
