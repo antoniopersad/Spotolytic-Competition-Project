@@ -40,3 +40,9 @@ def create_user_action():
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+
+
+@user_views.route('/tester', methods=['GET'])
+def random_function():
+    flash(f"hello user this test has been successful") 
+    return "yes"
