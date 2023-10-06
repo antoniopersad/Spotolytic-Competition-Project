@@ -5,3 +5,13 @@ class Host(db.Model):
     name =  db.Column(db.String, nullable=False, unique=True)
     website = db.Column(db.String, nullable=True)
     
+    competitions = db.relationship("CompetitionHost", lazy=True, backref=db.backref("competitions"), cascade="all, delete-orphan")
+
+    def toDict(self):
+        res = {
+            "id": self.id,
+            "name": self.name,
+            "website": self.website
+        }
+        return res
+    

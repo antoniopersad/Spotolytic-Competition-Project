@@ -6,6 +6,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
+    rank = db.Column(db.Integer, default=0, nullable=False)
+
+    competitions = db.relationship("UserCompetition", lazy=True, backref=db.backref("competitions"), cascade="all, delete-orphan")
 
     def __init__(self, username, password):
         self.username = username
