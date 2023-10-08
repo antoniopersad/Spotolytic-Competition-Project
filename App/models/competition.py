@@ -18,5 +18,5 @@ class Competition(db.Model):
             "date": self.date,
             "hosts": [host.toDict() for host in self.hosts],
             "participants": [participant.toDict() for participant in self.participants]
-        }
+        } 
         return res

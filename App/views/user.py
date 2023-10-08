@@ -46,3 +46,5 @@ def static_user_page():
 def random_function():
     flash(f"hello user this test has been successful") 
     return "yes"
+
+
