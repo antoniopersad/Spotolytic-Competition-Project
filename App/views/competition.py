@@ -9,7 +9,8 @@ from App.controllers import (
     # jwt_authenticate, 
     # get_all_users,
     # get_all_users_json,
-    jwt_required
+    jwt_required,
+    create_competition
 
 
 )
@@ -28,8 +29,18 @@ def get_competitons():
 @comp_views.route('/competitions', methods=['POST'])
 def add_new_comp():
     data = request.json
-    create_competition(data['name'], data['date'], data['location'], data['host'])
+    create_competition(data['name'], data['location'])
     return jsonify({'message': f"competition {data['name']} created"})
+
+
+@comp_views.route('/competitions/user', methods=['POST'])
+def add_comp_user():
+    data = request.json
+    add_new_user()
+    return ('customer added to competition')
+
+
+
 
 
 

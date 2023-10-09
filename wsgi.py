@@ -4,7 +4,9 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users )
+from App.controllers import ( create_competition, create_user, get_all_users_json, get_all_users )
+
+
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -68,6 +70,18 @@ def user_tests_command(type):
 
 app.cli.add_command(test)
 
+
+
+comps = AppGroup('comp', help = 'commands for competition')   
+
+@comps.command("add", help = 'add new competition')
+@click.argument("name", default = "Coding Comp")
+@click.argument("location", default = "Port of Spain")
+def add_comp(name, location):
+    create_competition(name, location)
+    print("Competition Created Successfully")
+
+app.cli.add_command(comps)
 
 #this is a comment to test if git push is functional ;) 
 
