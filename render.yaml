@@ -19,7 +19,7 @@ services:
     value: postgresql://competitions_platform_db_gfy9_user:ZwKvA8Tja028QeC1a0zGNH5DC2ttRPRy@dpg-cki6f9mafg7c73fcnndg-a/competitions_platform_db_gfy9
 
 databases:
-- name: competitions_platform_db_gfy9
+- name: competitions_platform_db
   plan: free
   databaseName: mydb
   
