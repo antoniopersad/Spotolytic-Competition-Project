@@ -1,5 +1,7 @@
 import click, pytest, sys
 from flask import Flask
+from datetime import datetime
+
 from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
@@ -83,9 +85,6 @@ def add_comp(name, location):
 
 
 
-#this is a comment to test if git push is functional ;) 
-
-#this is another test comment
 
 
 @comps.command("get", help = "list all competitions")
