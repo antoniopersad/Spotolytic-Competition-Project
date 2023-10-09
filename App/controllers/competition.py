@@ -8,4 +8,13 @@ def create_competition(name, location):
     db.session.commit()
     return newcomp
 
+def get_all_competitions():
+    return Competition.query.all()
 
+def get_all_competitions_json():
+    competition = Competition.query.all()
+
+    if not competition:
+        return []
+    else:
+        return [comp.toDict() for comp in competition]

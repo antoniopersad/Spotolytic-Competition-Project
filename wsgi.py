@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_competition, create_user, get_all_users_json, get_all_users )
+from App.controllers import ( create_competition, get_all_competitions, get_all_competitions_json, create_user, get_all_users_json, get_all_users )
 
 
 
@@ -81,8 +81,19 @@ def add_comp(name, location):
     create_competition(name, location)
     print("Competition Created Successfully")
 
-app.cli.add_command(comps)
+
 
 #this is a comment to test if git push is functional ;) 
 
 #this is another test comment
+
+
+@comps.command("get", help = "list all competitions")
+def get_comps():
+    print(get_all_competitions())
+
+@comps.command("get_json", help = "list all competitions")
+def get_comps():
+    print(get_all_competitions_json())
+
+app.cli.add_command(comps)

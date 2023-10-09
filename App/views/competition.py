@@ -10,7 +10,8 @@ from App.controllers import (
     # get_all_users,
     # get_all_users_json,
     jwt_required,
-    create_competition
+    create_competition,
+    get_all_competitions_json
 
 
 )

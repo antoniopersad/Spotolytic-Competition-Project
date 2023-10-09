@@ -4,7 +4,7 @@ from App.database import db
 class Competition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String, nullable=False, unique=True)
-    date = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.DateTime, nullable=True)
     # level = 
     location = db.Column(db.String(120), nullable=False)
 
@@ -16,6 +16,7 @@ class Competition(db.Model):
             "id": self.id,
             "name": self.name,
             "date": self.date,
+            "location": self.location,
             "hosts": [host.toDict() for host in self.hosts],
             "participants": [participant.toDict() for participant in self.participants]
         } 
