@@ -2,6 +2,9 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask_jwt_extended import jwt_required, current_user as jwt_current_user
 from flask_login import current_user, login_required
 
+from flask_login import login_required, login_user, current_user, logout_user
+
+
 from.index import index_views
 
 from App.controllers import (
@@ -10,16 +13,17 @@ from App.controllers import (
     get_all_users,
     get_all_users_json,
     jwt_required, 
-    get_ranked_users
+    get_ranked_users,
+    login
 
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
-@user_views.route('/users', methods=['GET'])
-def get_user_page():
-    users = get_all_users()
-    return render_template('users.html', users=users)
+# @user_views.route('/users', methods=['GET'])
+# def get_user_page():
+#     users = get_all_users()
+#     return render_template('users.html', users=users)
 
 @user_views.route('/api/users', methods=['GET'])
 def get_users_action():
@@ -56,3 +60,11 @@ def get_user_rankings():
     rankings = [u.to_dict() for u in users]
     return jsonify(rankings)
 
+@user_views.route('/login', methods=['POST'])
+def login_action():
+    data = request.form
+    user = login(data['username'], data['password'])
+    if user:
+        login_user(user)
+        return 'user logged in!'
+    return 'bad username or password given', 401
