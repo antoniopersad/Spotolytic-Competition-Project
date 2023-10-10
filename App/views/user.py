@@ -60,11 +60,3 @@ def get_user_rankings():
     rankings = [u.to_dict() for u in users]
     return jsonify(rankings)
 
-@user_views.route('/login', methods=['POST'])
-def login_action():
-    data = request.form
-    user = login(data['username'], data['password'])
-    if user:
-        login_user(user)
-        return 'user logged in!'
-    return 'bad username or password given', 401
