@@ -42,11 +42,12 @@ def add_comp_user():
     return ('customer added to competition')
 
 
-@comp_views.route('/competitions/int:id', methods=['GET'])
+@comp_views.route('/competitions/<int:id>', methods=['GET'])
 def get_competition(id):
+    print(id)
     competition = get_competition_by_id(id)
     if not competition:
-        return jsonify({'error': 'Competition not found'}), 404 ##might have to use this idk return jsonify(competition.toDict())
+        return jsonify({'error': 'Competition not found'}), 404 
     return jsonify(competition.toDict())
 
 
