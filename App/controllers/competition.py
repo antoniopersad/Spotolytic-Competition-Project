@@ -18,3 +18,8 @@ def get_all_competitions_json():
         return []
     else:
         return [comp.toDict() for comp in competition]
+
+
+def get_competition_by_id(id):
+    competition = Competition.query.get(id)
+    return competition

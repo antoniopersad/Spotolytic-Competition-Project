@@ -31,3 +31,5 @@ def update_user(id, username):
         return db.session.commit()
     return None
     
+def get_ranked_users():
+    return User.query.order_by(User.rank.asc()).all()

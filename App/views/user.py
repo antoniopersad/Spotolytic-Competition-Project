@@ -9,7 +9,9 @@ from App.controllers import (
     jwt_authenticate, 
     get_all_users,
     get_all_users_json,
-    jwt_required
+    jwt_required, 
+    get_ranked_users
+
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -47,4 +49,10 @@ def random_function():
     flash(f"hello user this test has been successful") 
     return "yes"
 
+
+@user_views.route('/users/rankings', methods=['GET'])
+def get_user_rankings():
+    users = get_ranked_users()
+    rankings = [u.to_dict() for u in users]
+    return jsonify(rankings)
 

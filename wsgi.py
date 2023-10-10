@@ -95,4 +95,8 @@ def get_comps():
 def get_comps():
     print(get_all_competitions_json())
 
+
+
+
+
 app.cli.add_command(comps)
