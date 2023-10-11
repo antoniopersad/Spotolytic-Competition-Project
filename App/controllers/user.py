@@ -70,20 +70,20 @@ def get_user_competitions(user_id):
 
 
 
-def update_ranks():
-  users = User.query.order_by(User.rank.asc()).limit(20).all()
+# def update_ranks():
+#   users = User.query.order_by(User.rank.asc()).limit(20).all()
   
-  # Store current ranks
-  ranks = {u.id: u.rank for u in users}
+#   # Store current ranks
+#   ranks = {u.id: u.rank for u in users}
   
-  # Update ranks
-  db.session.query(User).update({User.rank: User.rank + 1})  
-  db.session.commit()
+#   # Update ranks
+#   db.session.query(User).update({User.rank: User.rank + 1})  
+#   db.session.commit()
 
-  # Check if ranks changed
-  for u in users:
-    if u.rank != ranks[u.id]:
-      send_notification(u, f"Your rank changed from {ranks[u.id]} to {u.rank}")
+#   # Check if ranks changed
+#   for u in users:
+#     if u.rank != ranks[u.id]:
+#       send_notification(u, f"Your rank changed from {ranks[u.id]} to {u.rank}")
     
 
 def get_user_rankings(user_id):
