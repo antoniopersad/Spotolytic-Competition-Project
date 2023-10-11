@@ -12,7 +12,8 @@ from App.controllers import (
     jwt_required,
     create_competition,
     get_all_competitions_json,
-    get_competition_by_id
+    get_competition_by_id,
+    add_results
 
 
 )
@@ -49,6 +50,12 @@ def get_competition(id):
     if not competition:
         return jsonify({'error': 'Competition not found'}), 404 
     return jsonify(competition.toDict())
+
+@comp_views.route('/competitions/results', methods=['POST'])
+def add_comp_results():
+    data = request.json
+    add_results(data['comp_id'], data['user_id'])
+    return jsonify("results for this participant added successfully")
 
 
 

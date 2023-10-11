@@ -6,7 +6,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( get_user_competitions, add_user_to_comp, create_competition, get_all_competitions, get_all_competitions_json, create_user, get_all_users_json, get_all_users )
+from App.controllers import ( get_competition_users, findCompUser, get_user_competitions, add_user_to_comp, create_competition, get_all_competitions, get_all_competitions_json, create_user, get_all_users_json, get_all_users )
 
 
 
@@ -110,6 +110,17 @@ def getUserCompetitions(user_id):
     competitions = get_user_competitions(user_id)
     print("these are the competitions")
     print(competitions)
+
+@comps.command("findcompuser")
+@click.argument("user_id")
+@click.argument("comp_id")
+def find_comp_user(user_id, comp_id):
+    findCompUser(user_id, comp_id)
+
+@comps.command("getCompUsers")
+@click.argument("comp_id")
+def get_comp_users(comp_id):
+    get_competition_users(comp_id)
 
 
 app.cli.add_command(comps)
