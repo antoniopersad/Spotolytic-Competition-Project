@@ -28,3 +28,11 @@ class User(db.Model, UserMixin):
         """Check hashed password."""
         return check_password_hash(self.password, password)
 
+    def toDict(self):
+        res = {
+            "id": self.id,
+            "username": self.username,
+            "competitions": self.competitions
+        } 
+        return res
+

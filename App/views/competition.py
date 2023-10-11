@@ -62,7 +62,7 @@ def add_comp_results():
 @comp_views.route('/rankings/<int:id>', methods =['GET'])
 def get_rankings(id):
     ranks = get_user_rankings(id)
-    return jsonify(ranks)
+    return (ranks)
 
 
 

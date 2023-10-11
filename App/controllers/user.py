@@ -1,5 +1,6 @@
 from App.models import User, Competition, UserCompetition
 from App.database import db
+import json 
 
 def create_user(username, password):
     newuser = User(username=username, password=password)
@@ -88,6 +89,5 @@ def update_ranks():
 def get_user_rankings(user_id):
     users = User.query.get(user_id)
     userComps = users.competitions
+    return userComps
     
-    ranks = userComps.toDict()
-    return ranks

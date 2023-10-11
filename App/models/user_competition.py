@@ -6,7 +6,7 @@ class UserCompetition(db.Model):
     user_id =  db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     rank = db.Column(db.Integer, nullable=False)
 
-    def toDict(self):
+    def to_dict(self):
         res = {
             "id": self.id,
             "comp_id": self.comp_id,
