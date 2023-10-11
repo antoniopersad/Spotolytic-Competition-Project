@@ -66,5 +66,5 @@ def get_user_comps(id):
     data = request.form
     # comps = get_user_competitions(data['id'])
     comps = get_user_competitions(id)
-    userCompetitions =  [c.toDict() for c in comps]
-    return jsonify(userCompetitions)
+    # userCompetitions =  [c.toDict() for c in comps]
+    return jsonify(comps)
