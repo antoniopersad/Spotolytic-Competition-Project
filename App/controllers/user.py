@@ -1,6 +1,5 @@
 from App.models import User, Competition, UserCompetition
 from App.database import db
-import json 
 
 def create_user(username, password):
     newuser = User(username=username, password=password)
