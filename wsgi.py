@@ -124,10 +124,6 @@ def get_comp_users(comp_id):
     get_competition_users(comp_id)
 
 
-@comps.command("getRanks") 
-def getrank():
-    print(get_user_rankings(1))
-
 
 
 app.cli.add_command(comps)
