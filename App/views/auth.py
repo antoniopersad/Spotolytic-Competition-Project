@@ -18,14 +18,7 @@ Page/Action Routes
 '''
 
 
-@auth_views.route('/login', methods=['POST'])
-def login_action():
-    data = request.form
-    user = login(data['username'], data['password'])
-    if user:
-        login_user(user)
-        return 'user logged in!'
-    return 'bad username or password given', 401
+
 
 @auth_views.route('/users', methods=['GET'])
 def get_user_page():

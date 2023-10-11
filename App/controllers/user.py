@@ -1,4 +1,4 @@
-from App.models import User
+from App.models import User, Competition, UserCompetition
 from App.database import db
 
 def create_user(username, password):
@@ -33,3 +33,36 @@ def update_user(id, username):
     
 def get_ranked_users():
     return User.query.order_by(User.rank.asc()).all()
+
+
+# def compute_overall_rank():
+#     competitions = 
+
+def add_user_to_comp(user_id, comp_id):
+    # user_id = request.form['user_id']
+    # comp_id = request.form['comp_id']
+
+    user = User.query.get(user_id)
+    comp = Competition.query.get(comp_id)
+
+    
+    if user and comp:
+        user_comp = UserCompetition(user_id=user.id, comp_id=comp.id)
+        db.session.add(user_comp)
+        db.session.commit()
+        print("success")
+        
+
+    return 'Error adding user to competition'
+
+
+def get_user_competitions(user_id):
+    user = User.query.get(user_id)
+    userComps = user.competitions
+    
+    competitions = [Competition.query.get(inst.comp_id) for inst in userComps]
+    print(competitions)
+    print( [c.toDict() for c in competitions] )
+    return competitions
+
+    

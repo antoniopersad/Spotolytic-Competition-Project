@@ -6,7 +6,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_competition, get_all_competitions, get_all_competitions_json, create_user, get_all_users_json, get_all_users )
+from App.controllers import ( get_user_competitions, add_user_to_comp, create_competition, get_all_competitions, get_all_competitions_json, create_user, get_all_users_json, get_all_users )
 
 
 
@@ -96,7 +96,20 @@ def get_comps():
     print(get_all_competitions_json())
 
 
+@comps.command("add_user")
+@click.argument("user_id")
+@click.argument("comp_id")
+def add_to_comp(user_id, comp_id):
+    add_user_to_comp(user_id, comp_id)
+    print("Done!")
 
+
+@comps.command("getUserComps")
+@click.argument("user_id")
+def getUserCompetitions(user_id):
+    competitions = get_user_competitions(user_id)
+    print("these are the competitions")
+    print(competitions)
 
 
 app.cli.add_command(comps)

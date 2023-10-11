@@ -14,6 +14,7 @@ from App.controllers import (
     get_all_users_json,
     jwt_required, 
     get_ranked_users,
+    get_user_competitions,
     login
 
 )
@@ -60,3 +61,10 @@ def get_user_rankings():
     rankings = [u.to_dict() for u in users]
     return jsonify(rankings)
 
+@user_views.route('/users/competitions', methods = ['GET'])
+def get_user_comps():
+    data = request.form
+    # comps = get_user_competitions(data['id'])
+    comps = get_user_competitions(1)
+    userCompetitions =  [c.toDict() for c in comps]
+    return jsonify(userCompetitions)
