@@ -89,6 +89,7 @@ def get_user_rankings(user_id):
     users = User.query.get(user_id)
     userComps = users.competitions
 
-    ranks = [UserCompetition.query.get(a.id).to_dict() for a in userComps]
+    # ranks = [UserCompetition.query.get(a.id).to_dict() for a in userComps]
+    ranks = userComps.toDict()
     return ranks
     
