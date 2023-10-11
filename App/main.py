@@ -12,7 +12,8 @@ from App.config import config
 
 from App.controllers import (
     setup_jwt,
-    setup_flask_login
+    setup_flask_login,
+    register_admin_blueprint
 )
 
 from App.views import views
@@ -44,4 +45,6 @@ def create_app(config_overrides={}):
     setup_jwt(app)
     setup_flask_login(app)
     app.app_context().push()
+    register_admin_blueprint(app)
     return app
+
