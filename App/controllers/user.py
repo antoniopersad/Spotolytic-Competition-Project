@@ -38,7 +38,7 @@ def get_ranked_users():
 # def compute_overall_rank():
 #     competitions = 
 
-def add_user_to_comp(user_id, comp_id):
+def add_user_to_comp(user_id, comp_id, rank):
     # user_id = request.form['user_id']
     # comp_id = request.form['comp_id']
 
@@ -47,7 +47,7 @@ def add_user_to_comp(user_id, comp_id):
 
     
     if user and comp:
-        user_comp = UserCompetition(user_id=user.id, comp_id=comp.id)
+        user_comp = UserCompetition(user_id=user.id, comp_id=comp.id, rank = rank)
         db.session.add(user_comp)
         db.session.commit()
         print("success")
@@ -65,4 +65,29 @@ def get_user_competitions(user_id):
     print( [c.toDict() for c in competitions] )
     return competitions
 
+
+
+
+
+def update_ranks():
+  users = User.query.order_by(User.rank.asc()).limit(20).all()
+  
+  # Store current ranks
+  ranks = {u.id: u.rank for u in users}
+  
+  # Update ranks
+  db.session.query(User).update({User.rank: User.rank + 1})  
+  db.session.commit()
+
+  # Check if ranks changed
+  for u in users:
+    if u.rank != ranks[u.id]:
+      send_notification(u, f"Your rank changed from {ranks[u.id]} to {u.rank}")
     
+
+def get_user_rankings(user_id):
+    users = User.query.get(user_id)
+    userComps = users.competitions
+    
+    ranks = userComps.toDict()
+    return ranks

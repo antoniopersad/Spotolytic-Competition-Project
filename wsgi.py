@@ -99,8 +99,9 @@ def get_comps():
 @comps.command("add_user")
 @click.argument("user_id")
 @click.argument("comp_id")
-def add_to_comp(user_id, comp_id):
-    add_user_to_comp(user_id, comp_id)
+@click.argument("rank")
+def add_to_comp(user_id, comp_id, rank):
+    add_user_to_comp(user_id, comp_id, rank)
     print("Done!")
 
 

@@ -24,14 +24,14 @@ def get_competition_by_id(id):
     return competition
 
 
-def add_results(comp_id, user_id):
+def add_results(comp_id, user_id, rank):
     Comp = get_competition_by_id(comp_id)
 
     if Comp:
         user = User.query.get(user_id)
         if user:
 
-            compParticipant = UserCompetition(user_id = user.id, comp_id = Comp.id)
+            compParticipant = UserCompetition(user_id = user.id, comp_id = Comp.id, rank=rank)
             db.session.add(compParticipant)
             db.session.commit 
             print("successfully added user to comp")
