@@ -14,4 +14,4 @@ class CompetitionsController(Resource):
         if not competition:
             return []
         else:
-            return [comp.toDict() for comp in competition]
+            return jsonify(competitions=[comp.toDict() for comp in competition])

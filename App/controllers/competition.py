@@ -33,7 +33,7 @@ class CompetitionController(Resource):
         json_data=request.get_json(force=True)
         id=json_data['id']
         competition = Competition.query.get(id)
-        return competition
+        return jsonify(competition.toDict())
 
 
 def add_results(comp_id, user_id):
