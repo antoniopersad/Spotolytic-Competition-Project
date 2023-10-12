@@ -34,8 +34,11 @@ def get_users_action():
 @user_views.route('/api/users', methods=['POST'])
 def create_user_endpoint():
     data = request.json
-    create_user(data['username'], data['password'])
-    return jsonify({'message': f"user {data['username']} created"})
+    response = create_user(data['username'], data['password'])
+    if response:
+        return jsonify({'message': f"user {data['username']} created"})
+    return jsonify("error creating user")
+
 
 @user_views.route('/users', methods=['POST'])
 def create_user_action():

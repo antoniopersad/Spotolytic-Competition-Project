@@ -56,7 +56,7 @@ def get_competition(id):
 @comp_views.route('/competitions/results', methods=['POST'])
 def add_comp_results():
     data = request.json
-    response = add_user_to_comp(data['comp_id'], data['user_id'], data['rank'])
+    response = add_user_to_comp(data['user_id'],data['comp_id'], data['rank'])
     if response:
         return jsonify("results for this participant added successfully")
     return jsonify("error adding results")
