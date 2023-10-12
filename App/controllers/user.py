@@ -3,14 +3,9 @@ from App.database import db
 
 def create_user(username, password):
     newuser = User(username=username, password=password)
-    try:
-        db.session.add(newuser)
-        db.session.commit()
-        return True
-    except Exception as e:
-            print("FAILURE")
-            db.session.rollback()
-    return False
+    db.session.add(newuser)
+    db.session.commit()
+
 
 def get_user_by_username(username):
     return User.query.filter_by(username=username).first()

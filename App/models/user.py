@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
         return{
             'id': self.id,
             'username': self.username,
-            'competitions': self.competitions
+            # 'competitions': self.competitions
         }
 
     def set_password(self, password):
