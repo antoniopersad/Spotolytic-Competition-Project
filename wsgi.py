@@ -80,8 +80,11 @@ comps = AppGroup('comp', help = 'commands for competition')
 @click.argument("name", default = "Coding Comp")
 @click.argument("location", default = "Port of Spain")
 def add_comp(name, location):
-    create_competition(name, location)
-    print("Competition Created Successfully")
+    response = create_competition(name, location)
+    if response:
+        print("Competition Created Successfully")
+    else:
+        print("error adding comp")
 
 
 
