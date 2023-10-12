@@ -14,9 +14,8 @@ from App.controllers import (
     get_all_competitions_json,
     get_competition_by_id,
     add_results,
-    get_user_rankings
-
-
+    get_user_rankings,
+    add_user_to_comp
 )
 
 
@@ -57,9 +56,10 @@ def get_competition(id):
 @comp_views.route('/competitions/results', methods=['POST'])
 def add_comp_results():
     data = request.json
-    add_results(data['comp_id'], data['user_id'], data['rank'])
-    return jsonify("results for this participant added successfully")
-
+    response = add_user_to_comp(data['comp_id'], data['user_id'], data['rank'])
+    if response:
+        return jsonify("results for this participant added successfully")
+    return jsonify("error adding results")
 
 @comp_views.route('/rankings/<int:id>', methods =['GET'])
 def get_rankings(id):

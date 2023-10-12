@@ -48,8 +48,15 @@ def add_user_to_comp(user_id, comp_id, rank):
     
     if user and comp:
         user_comp = UserCompetition(user_id=user.id, comp_id=comp.id, rank = rank)
-        db.session.add(user_comp)
-        db.session.commit()
+        try:
+            db.session.add(user_comp)
+            db.session.commit()
+            return True
+        except Exception as e:
+            print("FAILURE")
+            db.session.rollback()
+            return False
+            
         print("success")
         
 
@@ -58,12 +65,18 @@ def add_user_to_comp(user_id, comp_id, rank):
 
 def get_user_competitions(user_id):
     user = User.query.get(user_id)
-    userComps = user.competitions
     
-    competitions = [Competition.query.get(inst.comp_id) for inst in userComps]
-    print(competitions)
-    print( [c.toDict() for c in competitions] )
-    return competitions
+    
+    if user:
+        userComps = user.competitions
+        competitions = [Competition.query.get(inst.comp_id) for inst in userComps]
+    # print(competitions)
+        if competitions:
+            results =  [c.toDict() for c in competitions] 
+            return results
+        else:
+            return competitions
+    return ("User not Found")
 
 
 
