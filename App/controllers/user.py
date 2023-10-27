@@ -3,8 +3,13 @@ from App.database import db
 
 def create_user(username, password):
     newuser = User(username=username, password=password)
-    db.session.add(newuser)
-    db.session.commit()
+    try:
+        db.session.add(newuser)
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        return False
 
 
 def get_user_by_username(username):
