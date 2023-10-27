@@ -34,7 +34,7 @@ def add_new_comp():
     data = request.json
     response = create_competition(data['name'], data['location'])
     if response:
-        return jsonify({'message': f"competition {data['name']} created"})
+        return jsonify({'message': f"competition created"})
     return jsonify("error adding competition")
 
 
