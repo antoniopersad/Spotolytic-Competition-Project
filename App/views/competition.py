@@ -26,7 +26,7 @@ comp_views = Blueprint('comp_views', __name__, template_folder='../templates')
 @comp_views.route('/competitions', methods=['GET'])
 def get_competitons():
     competitions = get_all_competitions_json()
-    return jsonify(competitions) 
+    return (jsonify(competitions),200) 
 
 ##add new competition to the db
 @comp_views.route('/competitions', methods=['POST'])
@@ -35,36 +35,39 @@ def add_new_comp():
     response = create_competition(data['name'], data['location'])
     if response:
         return (jsonify({'message': f"competition created"}), 201)
-    return (jsonify({'message': f"error creating competition"}),500)
+    return (jsonify({'error': f"error creating competition"}),500)
 
 
 @comp_views.route('/competitions/user', methods=['POST'])
 def add_comp_user():
     data = request.json
-    add_new_user()
-    return (jsonify('message': f"customer added to competition"),201)
-
+    response = add_new_user()
+    if response: 
+        return (jsonify({'message': f"user added to competition"}),201)
+    return (jsonify({'error': f"error adding user to competition"}),500)
 
 @comp_views.route('/competitions/<int:id>', methods=['GET'])
 def get_competition(id):
     print(id)
     competition = get_competition_by_id(id)
     if not competition:
-        return jsonify({'error': 'Competition not found'}), 404 
-    return jsonify(competition.toDict())
+        return jsonify({'error': 'competition not found'}), 404 
+    return (jsonify(competition.toDict()),200)
 
 @comp_views.route('/competitions/results', methods=['POST'])
 def add_comp_results():
     data = request.json
     response = add_user_to_comp(data['user_id'],data['comp_id'], data['rank'])
     if response:
-        return jsonify("results for this participant added successfully")
-    return jsonify("error adding results")
+        return (jsonify({'message': f"results for this participant added successfully"}),201)
+    return (jsonify({'error': f"error adding results"}),500)
 
 @comp_views.route('/rankings/<int:id>', methods =['GET'])
 def get_rankings(id):
     ranks = get_user_rankings(id)
-    return jsonify(ranks)
+    if ranks:
+        return (jsonify(ranks),200)
+    return(jsonify({'error': f"error getting user ranking"}),404)
 
 
 
