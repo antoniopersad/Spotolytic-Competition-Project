@@ -36,8 +36,8 @@ def create_user_endpoint():
     data = request.json
     response = create_user(data['username'], data['password'])
     if response:
-        return jsonify({'message': f"user {data['username']} created"})
-    return jsonify("error creating user")
+        return (jsonify({'message': f"user created"}),201)
+    return (jsonify({'error': "error creating user"}),500)
 
 
 @user_views.route('/users', methods=['POST'])
