@@ -17,10 +17,16 @@ class User(db.Model, UserMixin):
     def get_json(self):
         return{
             'id': self.id,
-            'username': self.username,
+            'username': self.username
             # 'competitions': self.competitions
         }
-
+        
+    def toDict(self):
+        return{
+            'id': self.id,
+            'username': self.username
+        }
+        
     def set_password(self, password):
         """Create hashed password."""
         self.password = generate_password_hash(password, method='sha256')
