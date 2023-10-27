@@ -59,7 +59,7 @@ def add_comp_results():
     data = request.json
     response = add_user_to_comp(data['user_id'],data['comp_id'], data['rank'])
     if response:
-        return (jsonify({'message': f"results for this participant added successfully"}),201)
+        return (jsonify({'message': f"results added successfully"}),201)
     return (jsonify({'error': f"error adding results"}),500)
 
 @comp_views.route('/rankings/<int:id>', methods =['GET'])
