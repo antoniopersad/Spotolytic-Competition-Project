@@ -74,8 +74,16 @@ def user_tests_command(type):
 
 
 @test.command("competition", help = 'Testing Competition commands')
-def competition_tests_command():
-    sys.exit(pytest.main(["-k", "CompUnitTests"]))
+@click.argument("type", default="all")
+def competition_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "CompUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "CompIntegrationTests"]))
+    else:
+        print("deafult input, no test ran")
+
+
 
 
 app.cli.add_command(test)

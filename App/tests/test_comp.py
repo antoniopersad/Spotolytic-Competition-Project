@@ -51,3 +51,45 @@ class CompUnitTests(unittest.TestCase):
 #     #     user = User("bob", "bobpass")
 #     #     assert user.username == "bob"
 
+
+
+
+@pytest.fixture(autouse=True, scope="module")
+def empty_db():
+    app = create_app({'TESTING': True, 'SQLALCHEMY_DATABASE_URI': 'sqlite:///test.db'})
+    create_db()
+    yield app.test_client()
+    db.drop_all()
+
+
+def test_authenticate():
+    user = create_user("bob", "bobpass")
+    assert login("bob", "bobpass") != None
+
+
+
+class CompIntegrationTests(unittest.TestCase):
+
+    def test_create_competition(self):
+        assert create_competition("Walktime", "Port of Spain")
+
+
+    def test_get_comp_list(self):
+        competitions = get_all_competitions_json()
+        cleaned_competitions = []
+
+        for competitions_json in competitions:
+            del competitions_json["date"]
+            del competitions_json["hosts"]
+            del competitions_json["participants"]
+            cleaned_competitions.append(competitions_json)
+        
+        expected_list = [{"id": 1, "name": "Walktime", "location": "Port of Spain"}]
+        self.assertListEqual(expected_list, cleaned_competitions)
+
+
+    def test_get_competition_by_id(self):
+        Competition_json = get_competition_by_id(1).get_json()
+        self.assertDictEqual(Competition_json, {"id":1, "name":"Walktime", "location": "Port of Spain"})
+        
+

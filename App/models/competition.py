@@ -12,9 +12,9 @@ class Competition(db.Model):
     participants = db.relationship("UserCompetition", lazy=True, backref=db.backref("users"), cascade="all, delete-orphan")
 
 
-    # def __init__(self, name, location):
-    #     self.name = name
-    #     self.location = location
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
 
 
     
