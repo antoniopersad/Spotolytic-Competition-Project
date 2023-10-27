@@ -11,6 +11,22 @@ class Competition(db.Model):
     hosts = db.relationship("CompetitionHost", lazy=True, backref=db.backref("hosts"), cascade="all, delete-orphan")
     participants = db.relationship("UserCompetition", lazy=True, backref=db.backref("users"), cascade="all, delete-orphan")
 
+
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
+
+
+    
+    def get_json(self):
+        return{
+            'id': self.id,
+            'name': self.name,
+            'location': self.location
+        }
+
+
+
     def toDict(self):
         res = {
             "id": self.id,

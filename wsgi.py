@@ -68,11 +68,22 @@ def user_tests_command(type):
         sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
-    
+
+
+
+
+
+@test.command("competition", help = 'Testing Competition commands')
+def competition_tests_command():
+    sys.exit(pytest.main(["-k", "CompUnitTests"]))
+
 
 app.cli.add_command(test)
 
 
+'''
+Competition commands
+'''
 
 comps = AppGroup('comp', help = 'commands for competition')   
 
