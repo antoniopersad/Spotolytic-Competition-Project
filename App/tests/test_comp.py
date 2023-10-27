@@ -45,9 +45,9 @@ class CompUnitTests(unittest.TestCase):
         self.assertDictEqual(testComp_json, {"id":None, "name":"Walktime", "location": "Port of Spain"})
 
 
-class CompIntegrationTests()
+# class CompIntegrationTests()
 
-    # def test_new_user(self):
-    #     user = User("bob", "bobpass")
-    #     assert user.username == "bob"
+#     # def test_new_user(self):
+#     #     user = User("bob", "bobpass")
+#     #     assert user.username == "bob"
 
