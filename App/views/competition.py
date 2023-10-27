@@ -34,15 +34,15 @@ def add_new_comp():
     data = request.json
     response = create_competition(data['name'], data['location'])
     if response:
-        return jsonify({'message': f"competition created"})
-    return jsonify("error adding competition")
+        return (jsonify({'message': f"competition created"}), 201)
+    return (jsonify({'message': f"error creating competition"}),500)
 
 
 @comp_views.route('/competitions/user', methods=['POST'])
 def add_comp_user():
     data = request.json
     add_new_user()
-    return ('customer added to competition')
+    return (jsonify('message': f"customer added to competition"),201)
 
 
 @comp_views.route('/competitions/<int:id>', methods=['GET'])
