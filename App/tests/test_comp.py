@@ -36,7 +36,7 @@ class CompUnitTests(unittest.TestCase):
 
     def test_new_comp(self):
         testComp = Competition("Walktime", "Port of Spain")
-        assert testComp.name
+        assert testComp.name == "Walktime"
 
 
     def test_comp_json(self):
@@ -92,4 +92,5 @@ class CompIntegrationTests(unittest.TestCase):
         Competition_json = get_competition_by_id(1).get_json()
         self.assertDictEqual(Competition_json, {"id":1, "name":"Walktime", "location": "Port of Spain"})
         
+
 

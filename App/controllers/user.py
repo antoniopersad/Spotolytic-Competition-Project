@@ -5,6 +5,7 @@ def create_user(username, password):
     newuser = User(username=username, password=password)
     db.session.add(newuser)
     db.session.commit()
+    return newuser
 
 
 def get_user_by_username(username):
@@ -30,17 +31,15 @@ def update_user(id, username):
         db.session.add(user)
         return db.session.commit()
     return None
+
+
     
 def get_ranked_users():
     return User.query.order_by(User.rank.asc()).all()
 
 
-# def compute_overall_rank():
-#     competitions = 
 
 def add_user_to_comp(user_id, comp_id, rank):
-    # user_id = request.form['user_id']
-    # comp_id = request.form['comp_id']
 
     user = User.query.get(user_id)
     comp = Competition.query.get(comp_id)

@@ -10,7 +10,11 @@ from App.controllers import (
     login,
     get_user,
     get_user_by_username,
-    update_user
+    update_user,
+    get_user_competitions,
+    create_competition,
+    add_user_to_comp,
+    get_user_rankings
 )
 
 
@@ -75,3 +79,31 @@ class UsersIntegrationTests(unittest.TestCase):
         update_user(1, "ronnie")
         user = get_user(1)
         assert user.username == "ronnie"
+
+    def test_add_user_to_comp(self):
+        newcomp = create_competition("Walktime", "Port of Spain")
+        if newcomp:
+            assert add_user_to_comp(1, 1, 4)
+        else:
+            assert False
+
+    def test_get_user_competitions(self):
+        comp = get_user_competitions(1)
+        user_competitions = []
+
+        for usercomp in comp:
+            del usercomp["date"]
+            del usercomp["hosts"]
+            del usercomp["participants"]
+            user_competitions.append(usercomp)
+        
+        expected_list = [{"id": 1, "name": "Walktime", "location": "Port of Spain"}]
+        self.assertListEqual(expected_list, user_competitions)
+
+
+    def test_get_user_rankings(self):
+        users = get_user_rankings(1)
+        
+        self.assertListEqual([{"id":1, "comp_id": 1 , "user_id": 1, "rank": 4}], users)
+
+

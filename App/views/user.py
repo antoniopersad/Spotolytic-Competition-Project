@@ -37,7 +37,7 @@ def create_user_endpoint():
     response = create_user(data['username'], data['password'])
     if response:
         return (jsonify({'message': f"user created"}),201)
-    else
+    else:
        return (jsonify({'error': f"error creating user"}),500)
 
 
@@ -72,3 +72,4 @@ def get_user_comps(id):
     comps = get_user_competitions(id)
     # userCompetitions =  [c.toDict() for c in comps]
     return jsonify(comps)
+    

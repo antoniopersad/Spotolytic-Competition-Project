@@ -49,7 +49,7 @@ def add_results(user_id, comp_id, rank):
             db.session.rollback()
             print("error adding to comp")
             return False
-            
+        return False
 
 
 
