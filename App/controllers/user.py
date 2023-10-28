@@ -50,7 +50,7 @@ def add_user_to_comp(user_id, comp_id, rank):
     user = User.query.get(user_id)
     comp = Competition.query.get(comp_id)
 
-    user_comp = UserCompetition.query.filter_by(user_id=user.id, comp_id=comp.id).one_or_none()
+    user_comp = UserCompetition.query.filter_by(user_id=user.id, comp_id=comp.id).first()
     if user_comp:
         return False
         
