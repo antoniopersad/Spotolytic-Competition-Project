@@ -1,0 +1,1685 @@
+{
+	"info": {
+		"_postman_id": "7e1450bb-d113-44df-bae0-beb826be7710",
+		"name": "Competitions Platform",
+		"description": "The headless API created for a competitions platform for COMP 3613 Assignment 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Competition List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75cee23f-d36d-4f4d-bb1b-0b8857cfbb3e",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"date\":{\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"hosts\": {\r",
+							"            \"type\": \"array\", \r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\", \r",
+							"                    \"properties\": {\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"name\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        },\r",
+							"                        \"website\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"location\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"participants\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\",\r",
+							"                    \"properties\": {\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"username\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"            \"date\",\r",
+							"            \"hosts\",\r",
+							"            \"id\",\r",
+							"            \"location\",\r",
+							"            \"name\",\r",
+							"            \"participants\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "276bcc01-d949-4550-8267-9de7c5a19c3f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/competitions",
+				"description": "Gets a list of all the competitions added in json format."
+			},
+			"response": [
+				{
+					"id": "78c9b560-eec2-408e-aea1-2be0bf827c37",
+					"name": "Get Competitions Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Oct 2023 20:01:09 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "814174226fb72263-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n    {\n        \"date\": \"Tue, 10 Oct 2023 19:46:22 GMT\",\n        \"hosts\": [],\n        \"id\": 1,\n        \"location\": \"UWI\",\n        \"name\": \"Walktime\",\n        \"participants\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Create Competition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1ba5789-b120-4adc-a7eb-8cfea34d50ce",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Competition created test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(\r",
+							"\t\tjsonData['message'].includes(\"competition created\")\r",
+							"\t).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "fc4c3d11-ed5e-4941-84d8-eb03435c9f5e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Runtime 3\",\r\n    \"location\": \"DCIT\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/competitions",
+				"description": "﻿Creates a new competition with the name and location"
+			},
+			"response": [
+				{
+					"id": "3fb2b93a-2964-48d2-a492-6de1d73fba5c",
+					"name": "Add New Competition Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Walktime\",\r\n    \"location\": \"UWI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Oct 2023 19:46:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81415e7c8dc1b3b9-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"message\": \"competition Walktime created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f83b3f01-4f25-4115-86a9-a9520b59f34a",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"id\": {\r",
+							"          \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"username\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"id\",\r",
+							"        \"username\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "232fe257-4f3e-498d-836b-ffc0f51db516",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/api/users",
+				"description": "﻿Gets a list of all users in JSON format"
+			},
+			"response": [
+				{
+					"id": "ad9985af-03c7-4248-9dc3-161e4c14085a",
+					"name": "Get All Users Exmple",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/api/users"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Oct 2023 20:39:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "8141ac1d08de370c-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n    {\n        \"id\": 1,\n        \"username\": \"bob\"\n    },\n    {\n        \"id\": 2,\n        \"username\": \"nick\"\n    },\n    {\n        \"id\": 3,\n        \"username\": \"Robert\"\n    },\n    {\n        \"id\": 4,\n        \"username\": \"Samuel\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b87524d-0f8d-4db0-98b9-553a75268070",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User created test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(\r",
+							"\t\tjsonData['message'].includes(\"user created\")\r",
+							"\t).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "7e76bb83-0f85-40f6-94c7-b8519c6c2adc",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"emily\",\r\n    \"password\": \"bobpass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://competitions-platform-5hrl.onrender.com/api/users",
+				"description": "﻿Signs up a new user"
+			},
+			"response": [
+				{
+					"id": "fbdda0fb-3197-4344-8821-04124be3a66d",
+					"name": "Add New User Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Robert\",\r\n    \"password\": \"RobPass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/api/users"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Oct 2023 20:08:38 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81417f1a6dc62263-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"message\": \"user Robert created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d61288e-13e7-47ef-bbb3-b713e4d6573a",
+						"exec": [
+							"pm.test(\"Returned Access Token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+							"    pm.environment.set('auth_token', jsonData['access_token']) \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3094e4e6-f1bb-4fe9-8226-ab615688c177",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"john\",\r\n    \"password\": \"johnpass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/login",
+				"description": "﻿Logs in an existing user"
+			},
+			"response": [
+				{
+					"id": "7990710f-7b03-4ed4-b793-e6963fb90818",
+					"name": "Login Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"bobpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/api/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:56:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81437c7e78b5da8f-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5Njk4OTM4MywianRpIjoiZWI0MGJjMjgtN2RkNC00MDE0LWJlODQtZGUzMDZjZDM0YTVjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjk2OTg5MzgzLCJleHAiOjE2OTc1OTQxODN9.ICSY1pXSPjMPnIYzVKlDXzSg1daw9KYcCkXZJaJIkdY\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Add Competition Results",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fd2e5cbf-c155-4b6b-9d03-540346651a1f",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"\tpm.response.to.not.be.error;\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Resuls added test\", function () {\r",
+							"\r",
+							"\tlet jsonData = pm.response.json();\r",
+							"\tpm.expect(\r",
+							"\t\tjsonData['message'].includes(\"results added successfully\")\r",
+							"\t).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "81d1875e-3efe-495d-87ba-a13723b2059f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comp_id\": \"1\",\r\n    \"user_id\": \"5\",\r\n    \"rank\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/competitions/results",
+				"description": "﻿Adds a user and the rank they attained in a competition to the competition participants"
+			},
+			"response": [
+				{
+					"id": "9987b821-bb87-4fcd-97df-b622360ef474",
+					"name": "Add Comp Results Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comp_id\": \"2\",\r\n    \"user_id\": \"2\",\r\n    \"rank\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions/results"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:43:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "814369834f5121e7-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "\"results for this participant added successfully\""
+				}
+			]
+		},
+		{
+			"name": "Get Competition Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af9d03e9-8517-4938-b30f-3f97af7324b9",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"date\":{\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"hosts\": {\r",
+							"            \"type\": \"array\", \r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\", \r",
+							"                    \"properties\": {\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"name\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        },\r",
+							"                        \"website\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"location\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"participants\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\",\r",
+							"                    \"properties\": {\r",
+							"                        \"comp_id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"rank\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"user_id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"            \"date\",\r",
+							"            \"hosts\",\r",
+							"            \"id\",\r",
+							"            \"location\",\r",
+							"            \"name\",\r",
+							"            \"participants\"\r",
+							"      ]\r",
+							"    }\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "84b985d3-f2b3-4b54-98b9-ff78ef52f3af",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/competitions/1",
+				"description": "﻿Gets all the details for a particular competition"
+			},
+			"response": [
+				{
+					"id": "36cfeaf3-9ed2-48bc-997d-30d97044d2a0",
+					"name": "Get Comp Details Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:41:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "814366b10a0c21e7-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"date\": \"Tue, 10 Oct 2023 19:46:22 GMT\",\n    \"hosts\": [],\n    \"id\": 1,\n    \"location\": \"UWI\",\n    \"name\": \"Walktime\",\n    \"participants\": [\n        {\n            \"comp_id\": 1,\n            \"id\": 1,\n            \"user_id\": 2\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Get User Competitions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93fb0090-57c7-4a3c-8e31-e9c943fcebd6",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"  \"type\": \"array\",\r",
+							"  \"items\": [\r",
+							"    {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"date\":{\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"hosts\": {\r",
+							"            \"type\": \"array\", \r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\", \r",
+							"                    \"properties\": {\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"name\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        },\r",
+							"                        \"website\": {\r",
+							"                            \"type\": \"string\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        },\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\"\r",
+							"        },\r",
+							"        \"location\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"name\": {\r",
+							"            \"type\": \"string\"\r",
+							"        },\r",
+							"        \"participants\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": [\r",
+							"                {\r",
+							"                    \"type\": \"object\",\r",
+							"                    \"properties\": {\r",
+							"                        \"comp_id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"rank\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"user_id\": {\r",
+							"                            \"type\": \"integer\"\r",
+							"                        }\r",
+							"                    }\r",
+							"                }\r",
+							"            ]\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"            \"date\",\r",
+							"            \"hosts\",\r",
+							"            \"id\",\r",
+							"            \"location\",\r",
+							"            \"name\",\r",
+							"            \"participants\"\r",
+							"      ]\r",
+							"    }\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2ce0e1cd-6250-4416-b57f-b96500395c3d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/users/competitions/3",
+				"description": "﻿Gets the details of all the competitions a particular user participated in"
+			},
+			"response": [
+				{
+					"id": "c5b93a31-efdc-434d-8e7b-362c3af8a66d",
+					"name": "Get User Competitions Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/users/competitions/2"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:58:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81437fd9bfdbda8f-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n    {\n        \"date\": \"Tue, 10 Oct 2023 19:46:22 GMT\",\n        \"hosts\": [],\n        \"id\": 1,\n        \"location\": \"UWI\",\n        \"name\": \"Walktime\",\n        \"participants\": [\n            {\n                \"comp_id\": 1,\n                \"id\": 1,\n                \"user_id\": 2\n            }\n        ]\n    },\n    {\n        \"date\": \"Wed, 11 Oct 2023 01:29:56 GMT\",\n        \"hosts\": [],\n        \"id\": 2,\n        \"location\": \"Port-of-Spain\",\n        \"name\": \"Web Wars\",\n        \"participants\": [\n            {\n                \"comp_id\": 2,\n                \"id\": 3,\n                \"user_id\": 2\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Rankings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9bc06cf3-0cbf-4a54-88f3-29184d3ace9b",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"const schema = {\r",
+							"    \"type\": \"array\",\r",
+							"    \"items\": [\r",
+							"        {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"comp_id\": {\r",
+							"                    \"type\": \"integer\"\r",
+							"                },\r",
+							"                \"id\": {\r",
+							"                    \"type\": \"integer\"\r",
+							"                },\r",
+							"                \"rank\": {\r",
+							"                    \"type\": \"integer\"\r",
+							"                },\r",
+							"                \"user_id\": {\r",
+							"                    \"type\": \"integer\"\r",
+							"                }\r",
+							"            }\r",
+							"        }\r",
+							"    ],\r",
+							"    \"required\": [\r",
+							"        \"comp_id\",\r",
+							"        \"id\",\r",
+							"        \"rank\",\r",
+							"        \"user_id\"\r",
+							"    ]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema is valid', function() {\r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "239a4fbf-dc96-4e4e-a542-57f6edf912f8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/rankings/3",
+				"description": "﻿Gets the results of a particular competition"
+			},
+			"response": [
+				{
+					"id": "baa81ad2-64c1-4c9c-adcb-ce5b5dc4d55d",
+					"name": "Ranking Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/rankings/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 27 Oct 2023 01:58:32 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81c755a1da2f8dca-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "rndr-id",
+							"value": "64bf1a10-8966-456f"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n    {\n        \"comp_id\": 1,\n        \"id\": 2,\n        \"rank\": 1,\n        \"user_id\": 1\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get Competition Details (no tests)",
+			"id": "c4e04be1-ea92-430c-a83e-bd34f37775f6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://competitions-platform-5hrl.onrender.com/competitions/1"
+			},
+			"response": [
+				{
+					"id": "a5fbb871-183a-4aa8-bcd1-13c19667104e",
+					"name": "Get Comp Details Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:41:30 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "814366b10a0c21e7-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"date\": \"Tue, 10 Oct 2023 19:46:22 GMT\",\n    \"hosts\": [],\n    \"id\": 1,\n    \"location\": \"UWI\",\n    \"name\": \"Walktime\",\n    \"participants\": [\n        {\n            \"comp_id\": 1,\n            \"id\": 1,\n            \"user_id\": 2\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Add Competition Results (no tests)",
+			"id": "7bdb528a-3345-441d-8282-17a082f4dc42",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comp_id\": \"1\",\r\n    \"user_id\": \"1\",\r\n    \"rank\": \"1\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://competitions-platform-5hrl.onrender.com/competitions/results"
+			},
+			"response": [
+				{
+					"id": "cb4bd9fa-07e7-4062-be6a-dded3d941e75",
+					"name": "Add Comp Results Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comp_id\": \"2\",\r\n    \"user_id\": \"2\",\r\n    \"rank\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions/results"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:43:26 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "814369834f5121e7-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "\"results for this participant added successfully\""
+				}
+			]
+		},
+		{
+			"name": "Get User Competitions (no tests)",
+			"id": "7572383a-959b-48d2-a24f-ab8a040857d2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://competitions-platform-5hrl.onrender.com/users/competitions/2"
+			},
+			"response": [
+				{
+					"id": "25a3f88b-7a6f-4d7c-b533-a4f7d455a42e",
+					"name": "Get User Competitions Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "https://competitions-platform-5hrl.onrender.com/users/competitions/2"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:58:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81437fd9bfdbda8f-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "[\n    {\n        \"date\": \"Tue, 10 Oct 2023 19:46:22 GMT\",\n        \"hosts\": [],\n        \"id\": 1,\n        \"location\": \"UWI\",\n        \"name\": \"Walktime\",\n        \"participants\": [\n            {\n                \"comp_id\": 1,\n                \"id\": 1,\n                \"user_id\": 2\n            }\n        ]\n    },\n    {\n        \"date\": \"Wed, 11 Oct 2023 01:29:56 GMT\",\n        \"hosts\": [],\n        \"id\": 2,\n        \"location\": \"Port-of-Spain\",\n        \"name\": \"Web Wars\",\n        \"participants\": [\n            {\n                \"comp_id\": 2,\n                \"id\": 3,\n                \"user_id\": 2\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Login (no tests)",
+			"id": "c89712b4-6cc2-4055-8203-4b0cd39b8a0d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"bobpass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://competitions-platform-5hrl.onrender.com/api/login"
+			},
+			"response": [
+				{
+					"id": "62524688-6681-45ec-a6ac-e65ca3c6a337",
+					"name": "Login Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"bobpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/api/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 11 Oct 2023 01:56:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81437c7e78b5da8f-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5Njk4OTM4MywianRpIjoiZWI0MGJjMjgtN2RkNC00MDE0LWJlODQtZGUzMDZjZDM0YTVjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjk2OTg5MzgzLCJleHAiOjE2OTc1OTQxODN9.ICSY1pXSPjMPnIYzVKlDXzSg1daw9KYcCkXZJaJIkdY\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Competition (no tests) ",
+			"id": "2584a1cd-9544-4493-9d01-806c7eeb499f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Trevor Sayers Bush Tea and Coding Competition\",\r\n    \"location\": \"Manzanilla\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://competitions-platform-5hrl.onrender.com/competitions"
+			},
+			"response": [
+				{
+					"id": "8384e888-d2ee-427f-a77c-52d1c6350806",
+					"name": "Add New Competition Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Walktime\",\r\n    \"location\": \"UWI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://competitions-platform-5hrl.onrender.com/competitions"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 10 Oct 2023 19:46:22 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "81415e7c8dc1b3b9-MIA"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "x-render-origin-server",
+							"value": "gunicorn"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"message\": \"competition Walktime created\"\n}"
+				}
+			]
+		}
+	]
+}
