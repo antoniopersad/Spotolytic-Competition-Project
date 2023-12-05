@@ -12,8 +12,8 @@ class CompetitionObserver(Observer):
         self.rank = rank
 
     def update(self, subject):
-        if isinstance(subject, User):  # Assuming User is a concrete subject class
+        if isinstance(subject, User): 
             print(f"User {subject.username} participated in competition {self.name} and achieved rank {self.rank}.")
 
-        elif isinstance(subject, Admin):  # Assuming Admin is a concrete subject class
+        elif isinstance(subject, Admin):
             print(f"Admin {subject.username} received an update about competition {self.name} with rank {self.rank}.")
