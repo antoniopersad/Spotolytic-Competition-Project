@@ -5,3 +5,4 @@ from .competition import *
 from .competition_host import *
 from .user_competition import *
 from .competition_observer import *
+from .observer import *
