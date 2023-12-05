@@ -1,9 +1,9 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 from App.database import db
-from competition_observer import Observer
+#from competition_observer import Observer
 
-class User(db.Model, UserMixin, Observer):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(120), nullable=False)
